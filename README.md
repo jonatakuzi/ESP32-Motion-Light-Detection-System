@@ -1,31 +1,49 @@
-Features
+ESP32 Motion + Light Detection System
 
-Detects motion with PIR sensor on GPIO 33
+This project uses an ESP32 with a PIR motion sensor and an LDR (light sensor) to detect movement only in low-light conditions. When motion is detected and the light level is below a threshold, the ESP32 triggers an LED (or any output device). This demonstrates embedded programming, sensor integration, and IoT-style event logic.
 
-Measures ambient light using LDR on GPIO 27
+ Features
 
-Automatically turns on LED on GPIO 2 in low-light motion
+PIR-based motion detection (GPIO 33)
 
-Includes serial debugging output
+LDR light measurement using ADC (GPIO 27, 0–4095 range)
 
-Adjustable light threshold
+LED activation on low-light motion detection (GPIO 2)
 
-Debounced PIR with stabilization delay
+Serial debugging output for monitoring sensor values
 
-Hardware Connections
+Adjustable light threshold for different environments
 
-PIR OUT → GPIO 33
+Automatic PIR stabilization delay
 
-LDR (analog) → GPIO 27
-
-LED → GPIO 2
+ Hardware Connections
+Component	ESP32 Pin
+PIR OUT	GPIO 33
+LDR (Analog)	GPIO 27
+LED	GPIO 2
 
 Use Cases
 
-Smart hallway night lighting
+Smart night-light activation
 
-Security systems
+Home security and motion alert systems
 
-Energy-saving room detection
+Energy-efficient room lighting
 
-IoT home automation
+Basic IoT automation and sensing projects
+
+📄 Code Overview
+
+The main logic:
+
+Reads motion via digitalRead()
+
+Reads light level via analogRead()
+
+Classifies light as Bright, Medium, or Dark
+
+Turns LED ON only when
+
+Motion is detected
+
+Light value is above the lightThreshold (meaning dark)
