@@ -1,49 +1,52 @@
-ESP32 Motion + Light Detection System
+# ESP32 Motion + Light Detection System
 
-This project uses an ESP32 with a PIR motion sensor and an LDR (light sensor) to detect movement only in low-light conditions. When motion is detected and the light level is below a threshold, the ESP32 triggers an LED (or any output device). This demonstrates embedded programming, sensor integration, and IoT-style event logic.
+An embedded C++ sketch for the ESP32 that combines a PIR motion sensor and an LDR light sensor to trigger outputs only under low-light conditions. Demonstrates sensor fusion, ADC reading, GPIO control, and serial debugging on a microcontroller.
 
- Features
+## How It Works
 
-PIR-based motion detection (GPIO 33)
-
-LDR light measurement using ADC (GPIO 27, 0–4095 range)
-
-LED activation on low-light motion detection (GPIO 2)
-
-Serial debugging output for monitoring sensor values
-
-Adjustable light threshold for different environments
-
-Automatic PIR stabilization delay
-
- Hardware Connections
-Component	ESP32 Pin
-PIR OUT	GPIO 33
-LDR (Analog)	GPIO 27
-LED	GPIO 2
-
-Use Cases
-
-Smart night-light activation
-
-Home security and motion alert systems
-
-Energy-efficient room lighting
-
-Basic IoT automation and sensing projects
-
-📄 Code Overview
-
-The main logic:
-
-Reads motion via digitalRead()
-
-Reads light level via analogRead()
-
-Classifies light as Bright, Medium, or Dark
-
-Turns LED ON only when
-
-Motion is detected
-
-Light value is above the lightThreshold (meaning dark)
+1. The LDR measures ambient light via analog read (0–4095)
+2. 2. The PIR sensor detects motion via digital read
+   3. 3. If motion is detected **and** light is below threshold, the LED activates
+      4. 4. Sensor values stream to Serial Monitor for real-time debugging
+        
+         5. ## Features
+        
+         6. - PIR motion detection on GPIO 33
+            - - LDR ambient light measurement on GPIO 27 (ADC)
+              - - LED output on GPIO 2
+                - - Light classified as Bright / Medium / Dark based on configurable threshold
+                  - - Automatic PIR warm-up delay on startup
+                    - - Serial output for live sensor monitoring
+                     
+                      - ## Hardware
+                     
+                      - | Component | ESP32 Pin |
+                      - |---|---|
+                      - | PIR sensor OUT | GPIO 33 |
+                      - | LDR (analog) | GPIO 27 |
+                      - | LED | GPIO 2 |
+                      - | GND | GND |
+                      - | VCC | 3.3V / 5V |
+                     
+                      - ## Setup
+                     
+                      - 1. Wire components per the table above
+                        2. 2. Open `sketch.ino` in Arduino IDE
+                           3. 3. Select board: **ESP32 Dev Module**
+                              4. 4. Upload and open Serial Monitor at **115200 baud**
+                                 5. 5. Adjust `lightThreshold` in the sketch to calibrate for your environment
+                                   
+                                    6. ## Use Cases
+                                   
+                                    7. - Smart night-light that only activates in the dark
+                                       - - Low-power motion alert systems
+                                         - - Energy-efficient room automation
+                                           - - Entry-level IoT sensing and event-driven logic
+                                            
+                                             - ## Tech Stack
+                                            
+                                             - - C++ (Arduino framework)
+                                               - - ESP32 Dev Module
+                                                 - - PIR sensor (HC-SR501 or equivalent)
+                                                   - - LDR + voltage divider
+                                                     - - Arduino IDE
